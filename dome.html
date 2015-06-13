@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+
+  <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame 
+       Remove this if you use the .htaccess -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+  <title>dome</title>
+  <meta name="description" content="" />
+  <meta name="author" content="star" />
+
+  <!--
+  	easeljs:核心  preload 加载  tweenjs动画    sound 声音
+  -->
+ 
+  <script src="js/easeljs-0.8.1.min.js"></script>
+  <script src="js/tweenjs-0.6.1.min.js"></script>
+  <script src="js/soundjs-0.6.1.min.js"></script>
+  <script src="js/preloadjs-0.6.1.min.js"></script>
+  <script src="js/jquery.js"></script>
+  <style>
+  	#canvas{width:500px;height:500px;}
+  </style>
+</head>
+
+<body>
+<canvas id="canvas" width="500" height="500"></canvas>
+<script>
+var sta;
+function init(){
+	//获取canvas 容器  舞台
+	sta=new createjs.Stage('canvas');
+	sta.autoClear=true;
+	//舞台  属性  x  y scaleX scaleY  alpha  (一般不做修改，需要可以创建一个层，来修改层的属性)
+	
+	//图片
+	var bg=new createjs.Bitmap('images/1.jpg');	
+	sta.addChild(bg);	
+	
+	//图形对象
+	var rect=new createjs.Shape();
+	rect.graphics.beginFill('#ff0000');//填充色
+	rect.graphics.drawRect(5,5,50,50);//矩形 
+	rect.graphics.endFill();
+	sta.addChild(rect);
+	
+	//层
+	var con=new createjs.Container();
+	con.y=100;
+	//创建文字
+	var txt=new createjs.Text('1',"20px Arial",'blue');
+	txt.x=50;
+	con.addChild(txt);
+	//圆
+	var circle=new createjs.Shape();
+	circle.graphics.beginFill('Crimson').drawCircle(0,0,50);
+	circle.x=100;
+	circle.y=100;
+	con.addChild(circle);
+	//tween 动画
+	createjs.Tween.get(circle,{loop:true})		
+	.to({x: 400}, 1000, createjs.Ease.getPowInOut(4))
+    .to({alpha: 0, y: 75}, 500, createjs.Ease.getPowInOut(2))
+    .to({alpha: 0, y: 125}, 100)
+    .to({alpha: 1, y: 100}, 500, createjs.Ease.getPowInOut(2))
+    .to({x: 100}, 800, createjs.Ease.getPowInOut(2));
+	
+	
+	//添加到舞台
+	sta.addChild(con);
+	
+	
+	
+	//FPS
+	createjs.Ticker.setFPS(60);
+	//绑定自动更新
+	createjs.Ticker.addEventListener("tick",function(){
+		bg.x+=2;
+		sta.update();
+	});
+	
+}
+$(function(){
+	init();
+})
+</script>
+</body>
+</html>
