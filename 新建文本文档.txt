@@ -1,0 +1,18 @@
+安装python  
+安装 ruby 
+安装git 并配置path bin  cmd
+
+
+
+安装ruby  从百度网盘下载安装:
+因为访问不到rubygems.org，所以gem install 安装不了，所以需要镜像：
+用淘宝的:
+
+这是一个完整 rubygems.org 镜像，你可以用此代替官方版本，同步频率目前为15分钟一次以保证尽量与官方服务同步。
+$ gem sources --remove https://rubygems.org/
+$ gem sources -a https://ruby.taobao.org/
+$ gem sources -l
+
+如果你是用 Bundle (Rails 项目)
+source 'https://ruby.taobao.org/'
+gem 'rails', '4.1.0'
