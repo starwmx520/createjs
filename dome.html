@@ -28,6 +28,36 @@
 <body>
 <canvas id="canvas" width="500" height="500"></canvas>
 <script>
+//加载图片
+var load=function(){
+	var queue = new createjs.LoadQueue();
+	queue.installPlugin(createjs.Sound);
+	//加载音乐
+	queue.loadFile({id:"sound", src:"images/bb.mp3"});
+	//加载图片
+	queue.loadManifest([
+        {id: "1.jpg", src:"images/1.jpg"}
+    ]);
+    queue.on("complete", handleComplete, this);
+    function handleComplete() {
+        createjs.Sound.play("sound");//播放音乐
+        //获取图片
+        queue.getResult("1.jpg");        
+    }
+}
+load();
+
+
+
+
+
+
+
+
+
+
+
+
 var sta;
 function init(){
 	//获取canvas 容器  舞台
@@ -71,8 +101,6 @@ function init(){
 	//添加到舞台
 	sta.addChild(con);
 	
-	
-	
 	//FPS
 	createjs.Ticker.setFPS(60);
 	//绑定自动更新
@@ -85,6 +113,10 @@ function init(){
 $(function(){
 	init();
 })
+
+
+
 </script>
+
 </body>
 </html>

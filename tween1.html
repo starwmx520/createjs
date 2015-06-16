@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+
+  <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame 
+       Remove this if you use the .htaccess -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+  <title>tween1</title>
+  <meta name="description" content="" />
+  <meta name="author" content="star" />
+   <style>
+   	html,body{overflow:hidden;background:#333;}
+   </style>
+  <!--
+  	easeljs:核心  preload 加载  tweenjs动画    sound 声音
+  -->
+ 
+  <script src="js/easeljs-0.8.1.min.js"></script>
+  <script src="js/tweenjs-0.6.1.min.js"></script>
+  <script src="js/tweenjs/CSSPlugin.js"></script>
+  <script src="js/jquery.js"></script> 
+</head>
+
+<body>
+<div id="target" style="width:20px;height:4px;background:#ccc;text-align:center;position:absolute;"></div>
+<script>
+/*Tween
+ * Tween(target,[pro],[一个包含插件数据的对象])
+ * target:调整对象    
+ * pro:相关配置    是一个对象  参数：  loop:bool 循环  userTicks:使用ticks来设置持续而不使用毫秒    ignoreGlobalPause:忽略全局暂停     paused :是否启动暂停的tween 
+ */
+$(function(){
+	//必须调用 的
+	createjs.CSSPlugin.install(createjs.Tween);	
+	var nu1=30*Math.PI/180;	
+	/*直角三角形中直角对边为“斜“，直角两边，短叫”勾“长的叫”股“  勾平方+股平方 =斜平方
+	 *斜长=Math.sqrt(3*3+3*3)//
+	 */
+	/*正弦  sin
+	 * 锐角的对边/斜边==正弦 sin   
+	 */
+	/*余弦cos
+	 * 锐角的邻边/斜边      
+	 */
+	/*正切 tan 
+	 * 锐角的对边/邻边   
+	 */
+	var num=500;
+	while(num-->0){
+		//角度转孤度   360*Math.PI/180;   弧rad
+		var box=document.createElement('span');
+		box.style.width = "6px";
+		box.style.height = "2px";
+		box.style.position = "absolute";
+		box.style.borderRadius = "2px";
+		box.style.backgroundColor = "#0F0";		
+		document.body.appendChild(box);
+		
+	    var a = Math.random()*360*Math.PI/180 ;
+	    box.style.webkitTransform = "rotate(" + a + "rad)";
+	    var d = 30;
+	    box.style.left = window.innerWidth / 2 + Math.cos(a ) * d + "px";
+	    box.style.top = window.innerHeight / 2 + Math.sin(a ) * d + "px";
+	    d = (Math.min(window.innerWidth, window.innerHeight) ) / 2 ;
+	    var x = window.innerWidth / 2 + Math.cos(a) * d;
+	    var y = window.innerHeight / 2 + Math.sin(a) * d;	
+	
+	    createjs.Tween.get(box,{loop:true},true).set({opacity:0},box.style).wait(Math.random()*1000+200).call(function(tween){
+	    	//回调中用_target来获取对象
+	    	tween._target.style.backgroundColor = "hsl(" + (Math.random() * 360 | 0) + ",100%,50%)";
+	    }).to({left:x,top:y,opacity:1,width:12,height:4},Math.random()*1500+1000,easeIn);
+	}
+	
+	
+	
+	return ;
+    createjs.Tween.get(box, {loop:true}).
+    //set(属性对象，要修改的对象style)
+    set({opacity:0},box.style).
+    //wait()  延迟时间
+    wait(1000).
+    //call 前边的执行完的回调
+    call(function(){
+    	console.log('1000')
+    }).
+    //to(属性对象，时间，动画类型)
+    to({opacity:1,left:150}, 500, createjs.Ease.quadInOut).
+    to({top:50}, 500, createjs.Ease.quadInOut);	
+
+	
+});   
+</script>
+</body>
+</html>
