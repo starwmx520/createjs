@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="js/tweenjs-0.6.1.min.js"></script>
+		<script src="js/jquery.js"></script>
+		<style>
+			.span_1{width:50px;height:50px;background:#3399FF;display:block;}
+		</style>
+	</head>
+	<body>
+		<span class="span_1"></span>
+		<script>
+		$(function(){
+			var span_1=$(".span_1");
+			createjs.Tween.get(span_1).to({left: 400}, 1000)
+		})		    
+		</script>
+	</body>
+</html>
